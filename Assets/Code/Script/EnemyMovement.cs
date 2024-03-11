@@ -23,10 +23,11 @@ public class EnemyMovement : MonoBehaviour
     // Neu khoang cach giua 2 diem nho hon thi moi tang gia tri 
     private void Update()
     {
-        if (Vector2.Distance(target.position,transform.position) <= 0.1f) indexPath++;
+        if (Vector2.Distance(target.position, transform.position) <= 0.1f) { indexPath++; }
 
         if(indexPath == LevelManager.main.path.Length)
         {
+            EnemySpawner.onEnemyDestroy.Invoke();
             Destroy(gameObject);
             return;
         }
