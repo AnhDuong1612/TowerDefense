@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using UnityEngine.UI;
 // toc  do xoay , pham vi ban : attribute , vi tri cua thap : reference
 // cho quay ve huong enemy , neu tim thay enemy thi ban vao enemy 
 
 
 // Sai huong
+
 
 public class Turret : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Turret : MonoBehaviour
     //2
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private GameObject selectUI;
+    [SerializeField] private Button selectBtn;
 
 
 
@@ -26,7 +29,7 @@ public class Turret : MonoBehaviour
     //2
     [SerializeField] private float bps = 1f;
 
-
+    //private bool isClick;
 
     private Transform target;
     private float timeUntilFire;
@@ -87,6 +90,33 @@ public class Turret : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
         transform.rotation = targetRotation; 
+    }
+
+    private void Start()
+    {
+        selectBtn.onClick.AddListener(Select);
+    }
+
+    public void OpenSelectUI()
+    {
+        selectUI.SetActive(true);
+        //isClick = true;
+    }
+
+    public void CloseSelectUI()
+    {
+        selectUI.SetActive(false);
+        //isClick = false;
+    }
+
+    public void Select()
+    {
+        CloseSelectUI();
+    }
+
+    public void OnMouseDown()
+    {
+        OpenSelectUI();
     }
 
     private void OnDrawGizmosSelected()

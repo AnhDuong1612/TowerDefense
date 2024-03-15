@@ -100,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 2747312639087035060}
   hoverColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+  countTurret: 0
+  turret: {fileID: 1479601355344399714, guid: 45f5effcd444a46f3b3fb4517d5b623d, type: 3}
 --- !u!61 &-222359860170309322
 BoxCollider2D:
   m_ObjectHideFlags: 0
