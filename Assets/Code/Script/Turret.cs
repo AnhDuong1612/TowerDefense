@@ -19,8 +19,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
     [SerializeField] private GameObject selectUI;
-    [SerializeField] private Button selectBtn;
-
 
 
     [Header("Attributes")]
@@ -29,12 +27,16 @@ public class Turret : MonoBehaviour
     //2
     [SerializeField] private float bps = 1f;
 
-    //private bool isClick;
 
     private Transform target;
     private float timeUntilFire;
+    private bool stateUI; // Sử dụng biến này để theo dõi trạng thái của UI
 
-    // Neu kong tim duoc doi tuong tra ve null , tim duoc doi tuong thi xoay theo doi tuong
+    private void Start()
+    {
+        CloseSelectUI();
+    }
+
     private void Update()
     {
         if(target == null)
@@ -42,7 +44,7 @@ public class Turret : MonoBehaviour
             FindTarget();
             return;
         }
-        RotateTowardTarget();
+        //RotateTowardTarget();
 
         if(!CheckIsInRange())
         {
@@ -72,8 +74,6 @@ public class Turret : MonoBehaviour
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 
-
-    // De tim doi tuong thi tao vung quet phat hien va cham voi doi tuong : raycasthit2D
     private void FindTarget()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
@@ -83,40 +83,33 @@ public class Turret : MonoBehaviour
         }
     }
 
-    // De tim diem xoay phai tinh goc roi xoay theo huong goc phai dung quaternion.euler de xoay theo goc 
-    private void RotateTowardTarget()
+    public void Select()
     {
-        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x)*Mathf.Rad2Deg + 90f;
-
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-        transform.rotation = targetRotation; 
-    }
-
-    private void Start()
-    {
-        selectBtn.onClick.AddListener(Select);
+        selectUI.SetActive(false);
+        stateUI = false; ;
     }
 
     public void OpenSelectUI()
     {
         selectUI.SetActive(true);
-        //isClick = true;
+        stateUI = true; 
     }
 
     public void CloseSelectUI()
     {
         selectUI.SetActive(false);
-        //isClick = false;
+        stateUI = false;
     }
 
-    public void Select()
+    public void ToggleSelectUI()
     {
-        CloseSelectUI();
+        if (stateUI) CloseSelectUI();
+        else OpenSelectUI();
     }
 
     public void OnMouseDown()
     {
-        OpenSelectUI();
+        ToggleSelectUI();
     }
 
     private void OnDrawGizmosSelected()
