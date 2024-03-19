@@ -641,12 +641,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 2747312639087035060}
   countTurret: 0
-  bowTower: {fileID: 0}
+  towerPrefabs:
+  - {fileID: 3063585897621620009, guid: 45f5effcd444a46f3b3fb4517d5b623d, type: 3}
+  - {fileID: 3063585897621620009, guid: 847965f25e9c445fc833459bb9eb0937, type: 3}
+  - {fileID: 3063585897621620009, guid: 41a741a22594c4b14a99213cb5da944c, type: 3}
+  - {fileID: 3063585897621620009, guid: 828b10c6b3681433a9c047533f04517b, type: 3}
   selectUI: {fileID: 1575607954643774642}
-  bowTowerBtn: {fileID: 9029669750492596060}
-  soliderTowerBtn: {fileID: 334944810470002606}
-  magicTowerBtn: {fileID: 1309793670486962337}
-  lighteningTowerBtn: {fileID: 4422940935984530585}
+  towerButtons:
+  - {fileID: 9029669750492596060}
+  - {fileID: 334944810470002606}
+  - {fileID: 1309793670486962337}
+  - {fileID: 4422940935984530585}
   state: 0
 --- !u!1 &3906519174493919467
 GameObject:
@@ -1169,7 +1174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2682229617068693761}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9022766859501605860
 GameObject:
   m_ObjectHideFlags: 0

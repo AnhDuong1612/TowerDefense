@@ -9,79 +9,47 @@ public class Plot : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private int countTurret = 0;
-    [SerializeField] private GameObject bowTower;
+    [SerializeField] private GameObject[] towerPrefabs;
 
     [Header("Attributes")]
     [SerializeField] public GameObject selectUI;
-    [SerializeField] private Button bowTowerBtn;
-    [SerializeField] private Button soliderTowerBtn;
-    [SerializeField] private Button magicTowerBtn;
-    [SerializeField] private Button lighteningTowerBtn;
-
+    [SerializeField] private Button[] towerButtons;
     public bool state;
 
-    private void Start() {
-        bowTowerBtn.onClick.AddListener(AddBowTower);
-        soliderTowerBtn.onClick.AddListener(AddSoliderTower);
-        magicTowerBtn.onClick.AddListener(AddMagicTower);
-        lighteningTowerBtn.onClick.AddListener(AddLighteningTower);
+    private void Start()
+    {
+        for (int i = 0; i < towerButtons.Length; i++)
+        {
+            int index = i; // Capturing the loop variable
+            towerButtons[i].onClick.AddListener(() => AddTower(index));
+        }
     }
 
-    public void AddBowTower() {
-        Tower bowTowerToBuild = BuildManager.main.GetSelectedTower();
-        bowTower = Instantiate(bowTowerToBuild.prefab, transform.position, Quaternion.identity);
+    public void AddTower(int index)
+    {
+        if (index >= 0 && index < towerPrefabs.Length)
+        {
+           
 
-        ToggleUI();
+            GameObject towerToBuild = towerPrefabs[index];
+            GameObject newTower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
+
+            ToggleUI();
+        }
+        else
+        {
+            Debug.LogWarning("Tower index out of bounds.");
+        }
     }
 
-    private void AddLighteningTower() {
-        Tower bowTowerToBuild = BuildManager.main.GetSelectedTower();
-        bowTower = Instantiate(bowTowerToBuild.prefab, transform.position, Quaternion.identity);
-
-        ToggleUI();
-    }
-
-    private void AddMagicTower() {
-        Tower bowTowerToBuild = BuildManager.main.GetSelectedTower();
-        bowTower = Instantiate(bowTowerToBuild.prefab, transform.position, Quaternion.identity);
-
-        ToggleUI();
-    }
-
-    private void AddSoliderTower() {
-        Tower bowTowerToBuild = BuildManager.main.GetSelectedTower();
-        bowTower = Instantiate(bowTowerToBuild.prefab, transform.position, Quaternion.identity);
-
-        ToggleUI();
-    }
-
-    //private void OnMouseDown()
-    //{
-    //    //if (UIManager.main.IsHoveringUI()) return;
-
-    //    //if (tower != null)
-    //    //{
-    //    //    turret.OpenUpgradeUI();
-    //    //    return;
-    //    //}
-
-    //    GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-    //    tower = Instantiate(towerToBuild, transform.position, Quaternion.identity);
-    //    IncreaseTurrets();
-    //    //turret = tower.GetComponent<Turrest>();
-    //}
-
-    //public void IncreaseTurrets()
-    //{
-    //    countTurret++;
-    //}
-
-    public void ToggleUI() {
+    public void ToggleUI()
+    {
         state = !state;
         selectUI.SetActive(state);
     }
 
-    public void OnMouseDown() {
+    public void OnMouseDown()
+    {
         ToggleUI();
     }
 }
